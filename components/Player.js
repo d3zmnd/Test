@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Asset, Audio } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
-import Controls from './Controls.jsx';
+import Controls from './Controls.js';
 class PlaylistItem {
   constructor(name, uri) {
     this.name = name;
