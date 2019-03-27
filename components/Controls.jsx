@@ -5,8 +5,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import { Asset, Audio } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
+
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
+const BACKGROUND_COLOR = '#FFFFFF';
+const DISABLED_OPACITY = 0.4;
 
 
 export default class Controls extends Component {

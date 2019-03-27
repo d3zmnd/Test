@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Asset, Audio } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
+import Controls from './Controls.jsx';
 class PlaylistItem {
   constructor(name, uri) {
     this.name = name;
@@ -264,81 +265,7 @@ export default class Player extends Component {
                 )}
             </Text>
           </View>
-          <View
-            style={[
-              styles.buttonsContainerBase,
-              styles.buttonsContainerTopRow,
-              {
-                opacity: this.state.isLoading
-                  ? DISABLED_OPACITY
-                  : 1.0,
-              },
-            ]}
-          >
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}              
-              onPress={this._onBackPressed}
-              disabled={this.state.isLoading}
-            >
-              <View>
-                <MaterialIcons
-                  name="fast-rewind"
-                  size={40}
-                  color="#56D5FA"
-                />
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onPlayPausePressed}
-              disabled={this.state.isLoading}
-            >
-              <View>
-                {this.state.isPlaying ? (
-                  <MaterialIcons
-                    name="pause"
-                    size={40}
-                    color="#56D5FA"
-                  />
-                ) : (
-                    <MaterialIcons
-                      name="play-arrow"
-                      size={40}
-                      color="#56D5FA"
-                    />
-                  )}
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onStopPressed}
-              disabled={this.state.isLoading}
-            >
-              <View>
-                <MaterialIcons
-                  name="stop"
-                  size={40}
-                  color="#56D5FA"
-                />
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onForwardPressed}
-              disabled={this.state.isLoading}
-            >
-              <View>
-                <MaterialIcons
-                  name="fast-forward"
-                  size={40}
-                  color="#56D5FA"
-                />
-              </View>
-            </TouchableHighlight>
-          </View>
+          <Controls />
           <View
             style={[
               styles.playbackContainer,
