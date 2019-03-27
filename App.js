@@ -16,20 +16,16 @@ class PlaylistItem {
     this.uri = uri;
   }
 }
-const PLAYLIST = [
+const PLAYLIST = [  
   new PlaylistItem(
-    'Online',
-    'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3'
-  ),
-  new PlaylistItem(
-    'Others',
-    '../assets/music/bellhound_choir_others.mp3'
+    'bellhound',
+    '../music/bellhound_choir_others.mp3'
   ),
 ];
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFFFFF';
-const DISABLED_OPACITY = 0.3;
+const DISABLED_OPACITY = 0.4;
 const FONT_SIZE = 14;
 const LOADING_STRING = 'Loading...';
 const BUFFERING_STRING = 'Buffering...';
@@ -80,7 +76,8 @@ export default class App extends Component {
       this.playbackInstance = null;
     }
 
-    const source = { uri: PLAYLIST[this.index].uri };
+    // const source = { uri: PLAYLIST[this.index].uri };
+
     const initialStatus = {
       shouldPlay: playing,
       rate: this.state.rate,
@@ -88,7 +85,7 @@ export default class App extends Component {
     };
 
     const { sound, status } = await Audio.Sound.create(
-      source,
+      require('./assets/music/bellhound_choir_others.mp3'),
       initialStatus,
       this._onPlaybackStatusUpdate
     );
@@ -111,7 +108,6 @@ export default class App extends Component {
       });
     }
   }
-
   _onPlaybackStatusUpdate = status => {
     if (status.isLoaded) {
       this.setState({
@@ -145,7 +141,6 @@ export default class App extends Component {
 
     this._loadNewPlaybackInstance(playing);
   }
-
   _onPlayPausePressed = () => {
     if (this.playbackInstance != null) {
       if (this.state.isPlaying) {
@@ -155,33 +150,28 @@ export default class App extends Component {
       }
     }
   };
-
   _onStopPressed = () => {
     if (this.playbackInstance != null) {
       this.playbackInstance.stopAsync();
     }
   };
-
   _onForwardPressed = () => {
     if (this.playbackInstance != null) {
       this._advanceIndex(true);
       this._updatePlaybackInstanceForIndex(this.state.shouldPlay);
     }
   };
-
   _onBackPressed = () => {
     if (this.playbackInstance != null) {
       this._advanceIndex(false);
       this._updatePlaybackInstanceForIndex(this.state.shouldPlay);
     }
   };
-
   _onVolumeSliderValueChange = value => {
     if (this.playbackInstance != null) {
       this.playbackInstance.setVolumeAsync(value);
     }
   };
-
   _trySetRate = async rate => {
     if (this.playbackInstance != null) {
       try {
@@ -190,11 +180,9 @@ export default class App extends Component {
       }
     }
   };
-
   _onRateSliderSlidingComplete = async value => {
     this._trySetRate(value * RATE_SCALE);
   };
-
   _onSeekSliderValueChange = value => {
     if (this.playbackInstance != null && !this.isSeeking) {
       this.isSeeking = true;
@@ -202,7 +190,6 @@ export default class App extends Component {
       this.playbackInstance.pauseAsync();
     }
   };
-
   _onSeekSliderSlidingComplete = async value => {
     if (this.playbackInstance != null) {
       this.isSeeking = false;
@@ -258,13 +245,11 @@ export default class App extends Component {
     }
     return '';
   }
-
   render() {
     return !this.state.fontLoaded ? (
       <View />
     ) : (
         <View style={styles.container}>
-          
           <View style={styles.detailsContainer}>
             <Text style={[styles.text]}>
               {this.state.playbackInstanceName}
@@ -379,7 +364,7 @@ export default class App extends Component {
               styles.buttonsContainerMiddleRow,
             ]}
           >
-            <View style={styles.volumeContainer}>
+            {/* <View style={styles.volumeContainer}>
               <View>
                 <MaterialIcons
                   name="volume-down"
@@ -401,7 +386,7 @@ export default class App extends Component {
                   color="#56D5FA"
                 />
               </View>
-            </View>
+            </View> */}
           </View>          
         </View>
       );
@@ -419,30 +404,37 @@ const styles = StyleSheet.create({
   }, 
   detailsContainer: {
     height: 40,
-    marginTop: '55%',
+    marginTop: 60,
     alignItems: 'center',
+    
   },
   playbackContainer: {
     flex: 1,
+    marginTop: '25%',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'stretch',
+    backgroundColor: 'yellow',
   },
   playbackSlider: {
     alignSelf: 'stretch',
     marginLeft: 10,
     marginRight: 10,
+    backgroundColor: 'green',
   },
   text: {
     fontSize: FONT_SIZE,
     minHeight: FONT_SIZE,
+    backgroundColor: 'cyan',
   },
   buttonsContainerBase: {
     flex: 1,
+    marginTop: 150,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: 'purple',
   },
   buttonsContainerTopRow: {
     maxHeight: 40,
