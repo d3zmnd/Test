@@ -1,4 +1,5 @@
 # Test
+test task on ReacNative
 npm install -g create-react-native-app
 
 create-react-native-app testApp
